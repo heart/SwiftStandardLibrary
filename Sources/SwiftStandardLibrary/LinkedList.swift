@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// A Linked List data structure
 struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
     
     typealias Element = T
