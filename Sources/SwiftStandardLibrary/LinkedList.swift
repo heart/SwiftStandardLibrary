@@ -134,6 +134,47 @@ struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
         oldNext?.previous = newNode
     }
     
+    /// Removes the first element in the list
+    ///
+    /// - Returns: The value of the first element in the list, `nil` if empty
+    mutating func removeFirst() -> T? {
+        let value = front?.value
+        front = front?.next
+        return value
+    }
+    
+    /// Removes the last element in the list
+    ///
+    /// - Returns: The value of the last element in the list, `nil` if empty
+    mutating func removeLast() -> T? {
+        let value = back?.value
+        back = back?.previous
+        return value
+    }
+    
+    /// Removes the element at a given index
+    ///
+    /// - Parameter index: The index of the element to remove
+    /// - Returns: The value of the removed element, `nil` if the index does not exist
+    mutating func remove(at index: Int) -> T? {
+        if index == 0 {
+            return removeFirst()
+        } else if index == count - 1 {
+            return removeLast()
+        }
+        
+        var node = front!
+        for _ in 0..<(index - 1) {
+            node = node.next!
+        }
+        
+        let removingNode = node.next!
+        node.next = removingNode.next
+        removingNode.next?.previous = node
+        
+        return removingNode.value
+    }
+    
     /// Removes all elements from the list
     mutating func removeAll() {
         count = 0

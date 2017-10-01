@@ -111,6 +111,62 @@ class LinkedListTests: XCTestCase {
         }
     }
     
+    func testRemoveAtBegining() {
+        let array = [1, 2, 3, 4, 5]
+        var list: LinkedList<Int> = [12, 1, 2, 3, 4, 5]
+        
+        let removedValue = list.remove(at: 0)
+        
+        XCTAssertEqual(removedValue, 12)
+        for (a, b) in zip(array, list) {
+            XCTAssertEqual(a, b)
+        }
+    }
+    
+    func testRemoveAtMiddle() {
+        let array = [1, 2, 3, 4, 5]
+        var list: LinkedList<Int> = [1, 2, 3, 12, 4, 5]
+        
+        let removedValue = list.remove(at: 3)
+        
+        XCTAssertEqual(removedValue, 12)
+        for (a, b) in zip(array, list) {
+            XCTAssertEqual(a, b)
+        }
+    }
+    
+    func testRemoveAtEnd() {
+        let array = [1, 2, 3, 4, 5]
+        var list: LinkedList<Int> = [1, 2, 3, 4, 5, 12]
+        
+        let removedValue = list.remove(at: 5)
+        
+        XCTAssertEqual(removedValue, 12)
+        for (a, b) in zip(array, list) {
+            XCTAssertEqual(a, b)
+        }
+    }
+    
+    func testRemoveFirstWithElements() {
+        var list: LinkedList<Int> = [1, 2, 3, 4, 5]
+        XCTAssertEqual(list.removeFirst(), 1)
+    }
+    
+    func testRemoveFirstWithEmpty() {
+        var list: LinkedList<Int> = []
+        XCTAssertNil(list.removeFirst())
+    }
+    
+    func testRemoveLastWithElements() {
+        var list: LinkedList<Int> = [1, 2, 3, 4, 5]
+        XCTAssertEqual(list.removeLast(), 5)
+    }
+    
+    func testRemoveLastWithEmpty() {
+        var list: LinkedList<Int> = []
+        XCTAssertNil(list.removeLast())
+    }
+    
     func testIterator() {
         var list = LinkedList<Int>()
         
