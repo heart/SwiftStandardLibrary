@@ -59,5 +59,15 @@ class StringTests: XCTestCase {
         XCTAssertEqual(str, "This is a test!")
     }
     
+    func testAsciiCodeForCharacter() {
+        let a = Character("a")
+        let z = Character("z")
+        let emoji = Character("🍆")
+        XCTAssertEqual(a.asciiCode, 97)
+        XCTAssertEqual(z.asciiCode, 122)
+        XCTAssertGreaterThan(emoji.asciiCode, z.asciiCode)
+        
+    }
+    
 }
 

@@ -8,6 +8,14 @@
 
 import Foundation
 
+extension Character {
+    
+    var asciiCode: Int {
+        return Int(unicodeScalars.first!.value)
+    }
+    
+}
+
 extension String {
     
     /// The count of all of the characters in the `String`
