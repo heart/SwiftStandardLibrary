@@ -14,6 +14,42 @@ struct BitSet {
     
     private var data: [UInt8]
     
+    /// Returns `true` if all of the bits are `true`
+    var all: Bool {
+        for (index, value) in data.enumerated() {
+            if index < data.count - 1 {
+                guard value == UInt8.max else { return false }
+            } else {
+                var expected: UInt8 = 0
+                let remaining = count - (data.count - 1) * 8
+                
+                for i in 0..<remaining {
+                    expected |= (1 << i)
+                }
+                
+                guard value == expected else { return false }
+            }
+        }
+        
+        return true
+    }
+    
+    /// Returns `true` if any of the bits in the set is `true`
+    var any: Bool {
+        for value in data {
+            if value > 0 {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    /// Returns `true` if all of the bits in the set are `false`
+    var none: Bool {
+        return !any
+    }
+    
     /// Creates a `BitSet` with a fixed number of bits
     ///
     /// - Parameter count: The number of bits in the set
@@ -59,6 +95,27 @@ struct BitSet {
     
 }
 
+extension BitSet : CustomStringConvertible {
+    
+    /// The set represented as a binary string
+    var description: String {
+        var str = ""
+        
+        for (index, item) in data.enumerated() {
+            var bitString = String(String(item, radix: 2).reversed())
+            if index < data.count - 1 {
+                while bitString.length < 8 {
+                    bitString += "0"
+                }
+            }
+            
+            str += bitString
+        }
+        
+        return str
+    }
+}
+
 extension BitSet : Sequence {
     
     typealias Element = Bool
@@ -99,10 +156,14 @@ extension BitSet : ExpressibleByStringLiteral {
     ///
     /// - Parameter value: A string repesentation of a binary value
     init(stringLiteral value: String) {
-        self.init(count: value.length)
+        self.init(binaryString: value)
+    }
+    
+    init(binaryString string: String) {
+        self.init(count: string.length)
         
         var i = 0
-        for char in value.reversed() {
+        for char in string {
             let setValue: Bool
             if char == "1" {
                 setValue = true
@@ -114,6 +175,20 @@ extension BitSet : ExpressibleByStringLiteral {
             
             self[i] = setValue
             i += 1
+        }
+    }
+}
+
+extension BitSet : ExpressibleByArrayLiteral {
+    typealias ArrayLiteralElement = Bool
+    
+    /// Initializes the set with with an array of boolean values
+    ///
+    /// - Parameter elements: An array of boolean values that will set the bits in the set
+    init(arrayLiteral elements: Bool...) {
+        self.init(count: elements.count)
+        for (index, value) in elements.enumerated() {
+            self[index] = value
         }
     }
 }

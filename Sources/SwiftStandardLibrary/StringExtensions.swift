@@ -10,8 +10,19 @@ import Foundation
 
 extension Character {
     
+    /// The ASCII code for the given character
     var asciiCode: Int {
         return Int(unicodeScalars.first!.value)
+    }
+    
+    /// The integer representation of the character,
+    /// if it is between zero and nine inclusively
+    var intValue: Int? {
+        guard ("0"..."9") ~= self else {
+            return nil
+        }
+        
+        return self.asciiCode - Character("0").asciiCode
     }
     
 }

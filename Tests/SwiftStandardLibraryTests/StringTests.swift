@@ -69,5 +69,17 @@ class StringTests: XCTestCase {
         
     }
     
+    func testIntValueForCharacter() {
+        let zero: Character = "0"
+        let five: Character = "5"
+        let nine: Character = "9"
+        let a: Character = "a"
+        
+        XCTAssertEqual(zero.intValue, 0)
+        XCTAssertEqual(five.intValue, 5)
+        XCTAssertEqual(nine.intValue, 9)
+        XCTAssertNil(a.intValue)
+    }
+    
 }
 
