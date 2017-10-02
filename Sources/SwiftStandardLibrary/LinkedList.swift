@@ -138,6 +138,8 @@ struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
     ///
     /// - Returns: The value of the first element in the list, `nil` if empty
     mutating func removeFirst() -> T? {
+        count = Swift.max(count - 1, 0)
+        
         let value = front?.value
         front = front?.next
         return value
@@ -147,6 +149,8 @@ struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
     ///
     /// - Returns: The value of the last element in the list, `nil` if empty
     mutating func removeLast() -> T? {
+        count = Swift.max(count - 1, 0)
+        
         let value = back?.value
         back = back?.previous
         return value
@@ -171,6 +175,8 @@ struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
         let removingNode = node.next!
         node.next = removingNode.next
         removingNode.next?.previous = node
+        
+        count = Swift.max(count - 1, 0)
         
         return removingNode.value
     }
