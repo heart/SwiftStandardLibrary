@@ -58,9 +58,7 @@ struct PriorityQueue<Element: Comparable> {
         /// Adds a `Node` as a child of `self`
         ///
         /// - Parameter node: The node to be the child
-        func addChild(_ node: Node<Element>?) {
-            guard let node = node else { return }
-            
+        func addChild(_ node: Node<Element>) {
             if child == nil {
                 child = node
             } else {
