@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// A priority queue data structure using a Fibonacci Heap for storage
 struct PriorityQueue<Element: Comparable> {
     
     private class Node<Element> {
