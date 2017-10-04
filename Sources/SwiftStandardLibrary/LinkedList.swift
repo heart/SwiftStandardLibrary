@@ -9,22 +9,21 @@
 import Foundation
 
 /// A Linked List data structure
-struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
+struct LinkedList<Element>: Sequence, ExpressibleByArrayLiteral {
     
-    typealias Element = T
-    typealias Iterator = LinkedListIterator<T>
+    typealias Iterator = LinkedListIterator<Element>
     
     /// A container for each element in the `LinkedList`
-    class Node<T> {
+    class Node<Element> {
         
         /// The next element in the list, `nil` if it is the end of the list
-        var next: Node<T>?
+        var next: Node<Element>?
         
         /// The previous element in the list, `nil` if is is the beginning of the list
-        weak var previous: Node<T>?
+        weak var previous: Node<Element>?
         
         /// The value of the current element in the list
-        var value: T
+        var value: Element
         
         /// Initialize a `Node` with a value and previous and next `Node`s if they exist
         ///
@@ -32,15 +31,15 @@ struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
         ///   - value: The value for the element in the list
         ///   - previous: The previous `Node` in the list
         ///   - next: The next `Node` in the list
-        init(value: T, previous: Node<T>? = nil, next: Node<T>? = nil) {
+        init(value: Element, previous: Node<Element>? = nil, next: Node<Element>? = nil) {
             self.value = value
             self.previous = previous
             self.next = next
         }
     }
     
-    private var front: Node<T>?
-    private var back: Node<T>?
+    private var front: Node<Element>?
+    private var back: Node<Element>?
     
     /// The number of elements in the list
     private(set) var count: Int = 0
@@ -51,19 +50,19 @@ struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
     }
     
     /// The first item in the list, `nil` if there are no elements
-    var first: T? {
+    var first: Element? {
         return front?.value
     }
     
     /// The last item in the list, `nil` if there are no elements
-    var last: T? {
+    var last: Element? {
         return back?.value
     }
     
     /// Initializes the list with elements from an array
     ///
     /// - Parameter elements: An array of elements to insert into the list
-    init(arrayLiteral elements: T...) {
+    init(arrayLiteral elements: Element...) {
         for item in elements {
             append(item)
         }
@@ -72,7 +71,7 @@ struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
     /// Inserts an element at the end of the list
     ///
     /// - Parameter value: The value to insert
-    mutating func append(_ value: T) {
+    mutating func append(_ value: Element) {
         count += 1
         
         let node = Node(value: value)
@@ -90,7 +89,7 @@ struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
     /// Inserts an element at the beginning of the list
     ///
     /// - Parameter value: The value to insert
-    mutating func prepend(_ value: T) {
+    mutating func prepend(_ value: Element) {
         count += 1
         
         let node = Node(value: value)
@@ -110,7 +109,7 @@ struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
     /// - Parameters:
     ///   - index: The index to insert the item
     ///   - value: The value to insert
-    mutating func insert(at index: Int, value: T) {
+    mutating func insert(at index: Int, value: Element) {
         guard index > 0 else {
             prepend(value)
             return
@@ -137,7 +136,7 @@ struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
     /// Removes the first element in the list
     ///
     /// - Returns: The value of the first element in the list, `nil` if empty
-    mutating func removeFirst() -> T? {
+    mutating func removeFirst() -> Element? {
         count = Swift.max(count - 1, 0)
         
         let value = front?.value
@@ -148,7 +147,7 @@ struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
     /// Removes the last element in the list
     ///
     /// - Returns: The value of the last element in the list, `nil` if empty
-    mutating func removeLast() -> T? {
+    mutating func removeLast() -> Element? {
         count = Swift.max(count - 1, 0)
         
         let value = back?.value
@@ -160,7 +159,7 @@ struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
     ///
     /// - Parameter index: The index of the element to remove
     /// - Returns: The value of the removed element, `nil` if the index does not exist
-    mutating func remove(at index: Int) -> T? {
+    mutating func remove(at index: Int) -> Element? {
         if index == 0 {
             return removeFirst()
         } else if index == count - 1 {
@@ -193,15 +192,14 @@ struct LinkedList<T>: Sequence, ExpressibleByArrayLiteral {
     /// Creates an iterator for all elements in the list
     ///
     /// - Returns: A `LinkedListIterator` over the elements in the list
-    func makeIterator() -> LinkedListIterator<T> {
-        return LinkedListIterator<T>(front)
+    func makeIterator() -> LinkedListIterator<Element> {
+        return LinkedListIterator<Element>(front)
     }
     
 }
 
-struct LinkedListIterator<T>: IteratorProtocol {
-    typealias Element = T
-    typealias Node = LinkedList<T>.Node<T>
+struct LinkedListIterator<Element>: IteratorProtocol {
+    typealias Node = LinkedList<Element>.Node<Element>
     
     private var current: Node?
     
@@ -215,7 +213,7 @@ struct LinkedListIterator<T>: IteratorProtocol {
     /// Fetches the next `Node` in the list
     ///
     /// - Returns: The value of the current `Node` in the list
-    mutating func next() -> T? {
+    mutating func next() -> Element? {
         let value = current?.value
         current = current?.next
         return value
