@@ -40,20 +40,5 @@ class StackTests: XCTestCase {
         XCTAssertNil(stack.top)
         XCTAssertTrue(stack.isEmpty)
     }
-    
-    func testIterator() {
-        var stack = Stack<Int>()
-        
-        let total = 1000
-        for i in 0..<total {
-            stack.push(i)
-        }
-        
-        var value = total - 1
-        for s in stack {
-            XCTAssertEqual(value, s)
-            value -= 1
-        }
-    }
 
 }

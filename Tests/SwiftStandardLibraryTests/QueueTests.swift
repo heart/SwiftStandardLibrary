@@ -34,17 +34,5 @@ class QueueTests: XCTestCase {
         XCTAssertTrue(queue.isEmpty)
         XCTAssertNil(queue.front)
     }
-    
-    func testIterator() {
-        var queue = Queue<Int>()
-        
-        for i in 0..<100 {
-            queue.enqueue(i)
-        }
-        
-        for (index, value) in queue.enumerated() {
-            XCTAssertEqual(index, value)
-        }
-    }
-    
+
 }
