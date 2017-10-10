@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct BitSet {
+public struct BitSet {
     
     /// The number of bits in the set
-    let count: Int
+    public let count: Int
     
     private var data: [UInt8]
     
     /// Returns `true` if all of the bits are `true`
-    var all: Bool {
+    public var all: Bool {
         for (index, value) in data.enumerated() {
             if index < data.count - 1 {
                 guard value == UInt8.max else { return false }
@@ -35,7 +35,7 @@ struct BitSet {
     }
     
     /// Returns `true` if any of the bits in the set is `true`
-    var any: Bool {
+    public var any: Bool {
         for value in data {
             if value > 0 {
                 return true
@@ -46,14 +46,14 @@ struct BitSet {
     }
     
     /// Returns `true` if all of the bits in the set are `false`
-    var none: Bool {
+    public var none: Bool {
         return !any
     }
     
     /// Creates a `BitSet` with a fixed number of bits
     ///
     /// - Parameter count: The number of bits in the set
-    init(count: Int) {
+    public init(count: Int) {
         self.count = count
         
         let arraySize = Int(ceil(Double(count) / 8.0))
@@ -69,7 +69,7 @@ struct BitSet {
     /// Gets the value of the current bit or set its
     ///
     /// - Parameter index: The index of the bit
-    subscript(_ index: Int) -> Bool {
+    public subscript(_ index: Int) -> Bool {
         get {
             guard index >= 0 && index < count else {
                 fatalError("Index out of bounds")
@@ -98,7 +98,7 @@ struct BitSet {
 extension BitSet : CustomStringConvertible {
     
     /// The set represented as a binary string
-    var description: String {
+    public var description: String {
         var str = ""
         
         for (index, item) in data.enumerated() {
@@ -118,19 +118,18 @@ extension BitSet : CustomStringConvertible {
 
 extension BitSet : Sequence {
     
-    typealias Element = Bool
+    public typealias Element = Bool
     
     /// Iterates over all elements in the bit set
-    class BitSetIterator: IteratorProtocol {
-        typealias Element = Bool
-        
-        let set: BitSet
-        init(set: BitSet) {
+    public class BitSetIterator: IteratorProtocol {
+        public typealias Element = Bool
+        private let set: BitSet
+        internal init(set: BitSet) {
             self.set = set
         }
         
         private var index = 0
-        func next() -> Bool? {
+        public func next() -> Bool? {
             guard index < set.count else {
                 return nil
             }
@@ -144,22 +143,22 @@ extension BitSet : Sequence {
     /// Creates an iterator for the BitSet
     ///
     /// - Returns: A `BitSetIterator` for every element in the set
-    func makeIterator() -> BitSetIterator {
+    public func makeIterator() -> BitSetIterator {
         return BitSetIterator(set: self)
     }
 }
 
 extension BitSet : ExpressibleByStringLiteral {
-    typealias StringLiteralType = String
+    public typealias StringLiteralType = String
     
     /// Initializes the set with a binary string
     ///
     /// - Parameter value: A string repesentation of a binary value
-    init(stringLiteral value: String) {
+    public init(stringLiteral value: String) {
         self.init(binaryString: value)
     }
     
-    init(binaryString string: String) {
+    public init(binaryString string: String) {
         self.init(count: string.length)
         
         var i = 0
@@ -180,12 +179,12 @@ extension BitSet : ExpressibleByStringLiteral {
 }
 
 extension BitSet : ExpressibleByArrayLiteral {
-    typealias ArrayLiteralElement = Bool
+    public typealias ArrayLiteralElement = Bool
     
     /// Initializes the set with with an array of boolean values
     ///
     /// - Parameter elements: An array of boolean values that will set the bits in the set
-    init(arrayLiteral elements: Bool...) {
+    public init(arrayLiteral elements: Bool...) {
         self.init(count: elements.count)
         for (index, value) in elements.enumerated() {
             self[index] = value

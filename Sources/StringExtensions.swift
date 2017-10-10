@@ -8,16 +8,16 @@
 
 import Foundation
 
-extension Character {
+public extension Character {
     
     /// The ASCII code for the given character
-    var asciiCode: Int {
+    public var asciiCode: Int {
         return Int(unicodeScalars.first!.value)
     }
     
     /// The integer representation of the character,
     /// if it is between zero and nine inclusively
-    var intValue: Int? {
+    public var intValue: Int? {
         guard ("0"..."9") ~= self else {
             return nil
         }
@@ -27,10 +27,10 @@ extension Character {
     
 }
 
-extension String {
+public extension String {
     
     /// The count of all of the characters in the `String`
-    var length: Int {
+    public var length: Int {
         return characters.count
     }
     
@@ -38,7 +38,7 @@ extension String {
     /// Gets or sets the `Character` at the given index
     ///
     /// - Parameter index: The index of the `Character` to be retrieved/written
-    subscript(_ index: Int) -> Character {
+    public subscript(_ index: Int) -> Character {
         get {
             return characters[characters.index(characters.startIndex, offsetBy: index)]
         }
@@ -56,7 +56,7 @@ extension String {
     ///   - from: The index in the string to start
     ///   - length: The length of the substring
     /// - Returns: A `String` substring
-    func substring(from: Int, length: Int) -> String {
+    public func substring(from: Int, length: Int) -> String {
         let i = index(startIndex, offsetBy: from)
         let j = index(i, offsetBy: length)
         return String(self[i..<j])
@@ -66,7 +66,7 @@ extension String {
     ///
     /// - Parameter to: The index where the substring should end
     /// - Returns: A `String` ending at the given index
-    func substring(to: Int) -> String {
+    public func substring(to: Int) -> String {
         let i = index(startIndex, offsetBy: to)
         return String(self[startIndex..<i])
     }
@@ -76,12 +76,10 @@ extension String {
     ///
     /// - Parameter from: The index where the substring should begin
     /// - Returns: A `String` starting at the given index
-    func substring(from: Int) -> String {
+    public func substring(from: Int) -> String {
         let i = index(startIndex, offsetBy: from)
         return String(self[i...])
     }
-    
-    
     
 }
 

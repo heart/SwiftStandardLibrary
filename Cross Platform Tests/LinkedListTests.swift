@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import SwiftStandardLibrary
+import SwiftStandardLibrary
 
 class LinkedListTests: XCTestCase {
     

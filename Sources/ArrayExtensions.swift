@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Array where Element : Comparable {
+public extension Array where Element : Comparable {
     
     /// Searches a sorted array to see if a given element exists
     ///
@@ -15,7 +15,7 @@ extension Array where Element : Comparable {
     ///   - value: The value to find in the array
     ///   - isSorted: If the array is not sorted, indicate that the array should be sorted
     /// - Returns: `true` if the element exists in the array; `false` otherwise
-    func binarySearch(_ value: Element, isSorted: Bool = true) -> Bool {
+    public func binarySearch(_ value: Element, isSorted: Bool = true) -> Bool {
         guard isSorted else {
             let sortedArray = sorted()
             return sortedArray.binarySearch(value)

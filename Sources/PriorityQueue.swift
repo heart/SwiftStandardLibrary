@@ -8,7 +8,7 @@
 import Foundation
 
 /// A priority queue data structure using a Fibonacci Heap for storage
-struct PriorityQueue<Element: Comparable> {
+public struct PriorityQueue<Element: Comparable> {
     
     private class Node<Element> {
         private(set) var degree: Int = 0
@@ -86,22 +86,25 @@ struct PriorityQueue<Element: Comparable> {
     private var heap: Node<Element>?
     
     /// The smallest element in the queue
-    var min: Element? {
+    public var min: Element? {
         return heap?.value
     }
     
     /// The number of elements in the queue
-    private(set) var count: Int = 0
+    public private(set) var count: Int = 0
     
     /// `true` if there are no elements in the queue, `false` otherwise
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         return count == 0
     }
+    
+    /// Initializes an empty `PriorityQueue`
+    public init() {}
 
     /// Inserts an element into the queue
     ///
     /// - Parameter value: The element to be inserted
-    mutating func enqueue(_ value: Element) {
+    public mutating func enqueue(_ value: Element) {
         let node = Node(value)
         
         if isEmpty {
@@ -124,7 +127,7 @@ struct PriorityQueue<Element: Comparable> {
     /// Removes the smallest element in the queue
     ///
     /// - Returns: The smallest element in the queue
-    mutating func dequeue() -> Element? {
+    public mutating func dequeue() -> Element? {
         // If the heap is empty, just return `nil`
         guard let heap = heap else { return nil }
         

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Int {
+public extension Int {
     
     /// Generates a random `Int`
     static var random: Int {
@@ -36,10 +36,10 @@ extension Int {
     
 }
 
-extension Double {
+public extension Double {
     
     /// Generates a random `Double`
-    static var random: Double {
+    public static var random: Double {
         return Double(arc4random()) / Double(UInt32.max)
     }
     
@@ -48,7 +48,7 @@ extension Double {
     ///
     /// - Parameter range: The range for the number to be contained in
     /// - Returns: A random `Double`
-    static func random(in range: Range<Double>) -> Double {
+    public static func random(in range: Range<Double>) -> Double {
         let width = range.upperBound - range.lowerBound
         return width * random + range.lowerBound
     }
@@ -58,7 +58,7 @@ extension Double {
     ///
     /// - Parameter range: The range for the number to be contained in
     /// - Returns: A random `Double`
-    static func random(in range: ClosedRange<Double>) -> Double {
+    public static func random(in range: ClosedRange<Double>) -> Double {
         let width = range.upperBound - range.lowerBound
         return width * random + range.lowerBound
     }

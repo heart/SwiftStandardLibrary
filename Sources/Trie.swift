@@ -8,9 +8,9 @@
 import Foundation
 
 /// A simple Trie for storing keys and values in a tree structure
-struct Trie<T> : ExpressibleByDictionaryLiteral {
-    typealias Key = String
-    typealias Value = T
+public struct Trie<T> : ExpressibleByDictionaryLiteral {
+    public typealias Key = String
+    public typealias Value = T
     
     private class Node<T> {
         var value: T?
@@ -24,14 +24,14 @@ struct Trie<T> : ExpressibleByDictionaryLiteral {
     
     private var root: Node<T> = Node()
     
-    init(dictionaryLiteral elements: (String, T)...) {
+    public init(dictionaryLiteral elements: (String, T)...) {
         elements.forEach { insert(key: $0.0, value: $0.1) }
     }
     
     /// Get and set for keys and values
     ///
     /// - Parameter key: The key of the value to get or set
-    subscript(_ key: String) -> T? {
+    public subscript(_ key: String) -> T? {
         get {
            return value(for: key)
         }
@@ -51,7 +51,7 @@ struct Trie<T> : ExpressibleByDictionaryLiteral {
     /// - Parameters:
     ///   - key: The key corresponding to the value
     ///   - value: The value to store
-    mutating func insert(key: String, value: T) {
+    public mutating func insert(key: String, value: T) {
         var node = root
         for c in key {
             if let child = node.children[c] {
@@ -71,7 +71,7 @@ struct Trie<T> : ExpressibleByDictionaryLiteral {
     /// - Parameter key: The key of the element to remove
     /// - Returns: The removed element
     @discardableResult
-    mutating func remove(for key: String) -> T? {
+    public mutating func remove(for key: String) -> T? {
         var node = root
         for c in key {
             if let child = node.children[c] {
@@ -91,7 +91,7 @@ struct Trie<T> : ExpressibleByDictionaryLiteral {
     ///
     /// - Parameter key: The key of the value to store
     /// - Returns: The value to store
-    func value(for key: String) -> T? {
+    public func value(for key: String) -> T? {
         var node = root
         for c in key {
             if let child = node.children[c] {
