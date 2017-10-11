@@ -8,7 +8,7 @@
 import Foundation
 
 /// A priority queue data structure using a Fibonacci Heap for storage
-public struct PriorityQueue<Element: Comparable> {
+public struct PriorityQueue<Element> {
     
     private class Node<Element> {
         private(set) var degree: Int = 0
@@ -85,6 +85,8 @@ public struct PriorityQueue<Element: Comparable> {
     /// The smallest element in the heap, and the head of the root level of the heap
     private var heap: Node<Element>?
     
+    private let comparator: ((Element, Element) -> Bool)
+    
     /// The smallest element in the queue
     public var min: Element? {
         return heap?.value
@@ -99,7 +101,9 @@ public struct PriorityQueue<Element: Comparable> {
     }
     
     /// Initializes an empty `PriorityQueue`
-    public init() {}
+    public init(comparator: @escaping ((Element, Element) -> Bool)) {
+        self.comparator = comparator
+    }
 
     /// Inserts an element into the queue
     ///
@@ -116,7 +120,7 @@ public struct PriorityQueue<Element: Comparable> {
             
             // If the new node is smallest than the previous smallest element,
             // let the new root be the new element
-            if node.value < heap!.value {
+            if comparator(node.value, heap!.value) {
                 heap = node
             }
         }
@@ -187,7 +191,7 @@ public struct PriorityQueue<Element: Comparable> {
                 guard x !== y else { break }
                 
                 // If the current node is larger than the stored node, switch them
-                if x.value > y.value {
+                if !comparator(x.value, y.value) {
                     swap(&x, &y)
                 }
                 
@@ -219,7 +223,13 @@ public struct PriorityQueue<Element: Comparable> {
         
         // Find the smallest node in the root level of the heap, which will be
         // the smallest element in the queue
-        heap = A.values.min(by: { $0.value < $1.value })
+        heap = A.values.min(by: { comparator($0.value, $1.value) })
     }
     
+}
+
+extension PriorityQueue where Element : Comparable {
+    public init() {
+        self.comparator = { $0 < $1 }
+    }
 }
