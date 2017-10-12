@@ -81,5 +81,18 @@ public extension String {
         return String(self[i...])
     }
     
+    /// Finds all of the matches for a given regex pattern in the string
+    ///
+    /// - Parameter pattern: The regular expression pattern
+    /// - Returns: The substrings that match the pattern in the string
+    public func matches(regex pattern: String) -> [String] {
+        let regex = try? NSRegularExpression(pattern: pattern, options: [])
+        let matches = regex?.matches(in: self, options: [], range: NSMakeRange(0, utf16.count))
+        return matches?.map { result in
+            let range = result.range(at: 1)
+            return substring(from: range.location, length: range.length)
+        } ?? []
+    }
+    
 }
 

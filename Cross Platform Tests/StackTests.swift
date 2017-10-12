@@ -38,6 +38,7 @@ class StackTests: XCTestCase {
         }
         
         XCTAssertNil(stack.top)
+        XCTAssertNil(stack.pop())
         XCTAssertTrue(stack.isEmpty)
     }
 

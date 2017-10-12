@@ -81,5 +81,25 @@ class StringTests: XCTestCase {
         XCTAssertNil(a.intValue)
     }
     
+    // Adapted from http://nshipster.com/nsregularexpression
+    func testRegularExpressions() {
+        let source = "Questions? Corrections? <a href=\"https://twitter.com/NSHipster\">@NSHipster</a> or <a href=\"https://github.com/NSHipster/articles\">on GitHub</a>."
+        
+        let pattern = "<a\\s+[^>]*href=\"([^\"]*)\"[^>]*>"
+        let matches = source.matches(regex: pattern)
+        
+        XCTAssertEqual(matches.count, 2)
+        XCTAssertEqual(matches[0], "https://twitter.com/NSHipster")
+        XCTAssertEqual(matches[1], "https://github.com/NSHipster/articles")
+    }
+    
+    func testRegularExpressionWithBadPattern() {
+        let source = "testing 1 2 3"
+        let pattern = "💩./12?31ˆ31"
+        
+        let matches = source.matches(regex: pattern)
+        XCTAssertTrue(matches.isEmpty)
+    }
+    
 }
 
