@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "SwiftStandardLibrary"
-  s.version      = "0.1.2"
+  s.version      = "0.1.3"
   s.summary      = "A collection of data structures and algorithms currently absent in Swift."
 
   s.homepage     = "https://github.com/tdkirtland/SwiftStandardLibrary"
