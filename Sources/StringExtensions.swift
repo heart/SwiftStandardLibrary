@@ -94,5 +94,9 @@ public extension String {
         } ?? []
     }
     
+    public func countWord(_ word:String)->Int{
+        return self.components(separatedBy: word).count - 1
+    }
+    
 }
 

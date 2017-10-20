@@ -101,5 +101,14 @@ class StringTests: XCTestCase {
         XCTAssertTrue(matches.isEmpty)
     }
     
+    func testWordCount() {
+        let source = "Old MACDONALD had a farm E-I-E-I-O And on his farm he had a cow E-I-E-I-O"
+       
+        let num = source.countWord("farm")
+        XCTAssertEqual(2, num )
+        
+    }
+    
+    
 }
 
